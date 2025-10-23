@@ -118,9 +118,21 @@ const projects = [
 
 const categories = ["Alle", "Gewerbebau", "Hospitality", "Öffentliche Bauten", "Wohnbau", "Gesundheitswesen", "Infrastruktur"];
 
+type Project = {
+  id: number;
+  title: string;
+  year: string;
+  category: string;
+  location: string;
+  image: string;
+  description: string;
+  services: string[];
+  details: string;
+};
+
 export default function Referenzen() {
   const [selectedCategory, setSelectedCategory] = useState("Alle");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = selectedCategory === "Alle"
     ? projects
