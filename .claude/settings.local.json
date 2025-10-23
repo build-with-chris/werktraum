@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx shadcn@latest add:*)",
+      "WebFetch(domain:shadcnblocks.com)",
+      "Bash(npx shadcn add:*)",
+      "Bash(git add:*)",
+      "Bash(npm run build:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
