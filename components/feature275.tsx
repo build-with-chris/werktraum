@@ -23,9 +23,7 @@ const Feature275 = () => {
               defaultText="🏗️"
               revealText="Innenausbau"
               revealDesc="Von Gastronomie-Projekten bis zu Privaträumen. Hochwertige Lösungen für jeden Anspruch mit 20+ Jahren Erfahrung."
-              animationSpeed={5.1}
-              containerClassName="bg-emerald-900"
-              hasRadialGradient
+              backgroundImage="/Wohnräume.jpg"
             />
           </a>
           <a href="/cad-planung">
@@ -33,14 +31,7 @@ const Feature275 = () => {
               defaultText="📐"
               revealText="CAD-Planung"
               revealDesc="Präzise 3D-Planungen und professionelle Vectorworks-Schulungen für perfekte Ergebnisse in jeder Dimension."
-              animationSpeed={3}
-              containerClassName="bg-slate-900"
-              colors={[
-                [59, 130, 246],
-                [147, 197, 253],
-              ]}
-              dotSize={2}
-              hasRadialGradient
+              backgroundImage="/CAD.jpg"
             />
           </a>
           <a href="/tinyhouse">
@@ -48,10 +39,7 @@ const Feature275 = () => {
               defaultText="🏠"
               revealText="Tinyhouse-Projekte"
               revealDesc="Clevere Raumkonzepte für minimalistisches Leben mit maximaler Funktionalität und nachhaltigen Materialien."
-              animationSpeed={3}
-              containerClassName="bg-amber-900"
-              colors={[[251, 191, 36]]}
-              hasRadialGradient
+              backgroundImage="/Tinyhouse.jpg"
             />
           </a>
         </div>
@@ -86,6 +74,7 @@ const Card = ({
   colors = [[255, 255, 255]],
   dotSize = 1,
   hasRadialGradient = false,
+  backgroundImage,
 }: {
   defaultText: string;
   revealText: string;
@@ -95,41 +84,42 @@ const Card = ({
   colors?: number[][];
   dotSize?: number;
   hasRadialGradient?: boolean;
+  backgroundImage?: string;
 }) => {
   const [hovered, setHovered] = React.useState(false);
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group/canvas-card bg-gray-800 border-2 border-border hover:border-primary/70 relative mx-auto flex h-[22rem] w-full items-center justify-center overflow-hidden rounded-3xl transition-all duration-300 shadow-lg hover:shadow-xl"
+      className="group/canvas-card relative mx-auto flex h-[22rem] w-full items-center justify-center overflow-hidden rounded-3xl transition-all duration-300 shadow-lg hover:shadow-xl"
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute inset-0 h-full w-full"
-          >
-            <CanvasRevealEffect
-              animationSpeed={animationSpeed}
-              containerClassName={containerClassName}
-              colors={colors}
-              dotSize={dotSize}
-            />
-            {hasRadialGradient && (
-              <div className="absolute inset-0 bg-black/50 [mask-image:radial-gradient(400px_at_center,white,transparent)] dark:bg-black/90" />
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative z-20 flex h-full items-center justify-center">
-        <div className="text-muted-foreground absolute mx-auto flex w-full max-w-[10rem] flex-col items-center justify-center gap-5 text-center text-6xl leading-none tracking-tight transition duration-200 group-hover/canvas-card:-translate-y-4 group-hover/canvas-card:opacity-0">
-          {defaultText}
+        {!hovered && (
+          <div className="text-white absolute mx-auto flex w-full max-w-[10rem] flex-col items-center justify-center gap-5 text-center text-6xl leading-none tracking-tight">
+            {/* Kein Emoji auf der Vorderseite */}
+          </div>
+        )}
+
+        {/* Mobile Title and Click Hint */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:hidden">
+          <div className="bg-black/70 backdrop-blur-sm rounded-lg p-3 text-center">
+            <h3 className="text-white font-bold text-lg mb-1">{revealText}</h3>
+            <p className="text-gray-300 text-sm">Tippen für mehr Details</p>
+          </div>
         </div>
-        <div className="absolute relative z-10 mt-4 flex h-full flex-col justify-between border border-border p-7 tracking-tight text-foreground opacity-0 transition duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:text-white group-hover/canvas-card:opacity-100 rounded-lg bg-black/80 backdrop-blur-sm">
-          <p className="text-2xl font-bold mb-4">{revealText}</p>
-          <p className="text-base leading-relaxed">{revealDesc}</p>
+        <div className="absolute relative z-30 mt-4 flex h-full flex-col justify-center items-center text-center border border-border p-7 tracking-tight text-white opacity-0 transition duration-200 group-hover/canvas-card:-translate-y-2 group-hover/canvas-card:opacity-100 rounded-lg bg-black/85 backdrop-blur-md shadow-2xl">
+          <p className="text-2xl font-bold mb-4 text-white">{revealText}</p>
+          <div className="text-4xl mb-4">{defaultText}</div>
+          <p className="text-base leading-relaxed text-gray-100">{revealDesc}</p>
         </div>
       </div>
     </div>
