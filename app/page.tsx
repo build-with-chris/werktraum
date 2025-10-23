@@ -71,9 +71,10 @@ export default function Home() {
             </p>
             <Link
               href="/kontakt"
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-5 text-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 sm:px-10 sm:py-5 text-base sm:text-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 max-w-full"
             >
-              Jetzt Beratungstermin vereinbaren
+              <span className="sm:hidden">Beratung anfragen</span>
+              <span className="hidden sm:inline">Jetzt Beratungstermin vereinbaren</span>
             </Link>
           </div>
         </div>
